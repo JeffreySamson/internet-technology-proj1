@@ -21,6 +21,21 @@ rshost_addr = socket.gethostbyname(sys.argv[1])
 rs_binding = (rshost_addr, rs_port)
 crs.connect(rs_binding)
 
+#JEFF's CODE
+#target = input("Enter the dns name you want to find: ")
+#with open('PROJI-HNS.txt', 'r') as f:
+#    read_file = f.readlines()
+
+#msg = ""
+#for line in read_file:
+    #print(line.strip('\n'))
+#    if line.strip('\n') == target:
+#        msg = line.rstrip("\r\n")
+#        break
+#    else:
+#        msg = 'Hostname - Error:HOST NOT FOUND'
+#crs.send(msg.encode('utf-8'))
+
 # read input file
 with open('PROJI-HNS.txt', 'r') as f:
     read_file = f.readlines()

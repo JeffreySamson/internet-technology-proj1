@@ -1,6 +1,7 @@
 # internet-technology-proj1
 ## Names and NetIDs
 Jeffrey Samson (jas1055)
+Aum Pathak (aap273)
 
 ## 1. Briefly discuss how you implemented your recursive client functionality.
 ## 2. Are there known issues or functions that aren't working currently in your attached code? If so, explain.

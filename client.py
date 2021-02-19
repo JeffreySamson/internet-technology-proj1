@@ -25,20 +25,18 @@ crs.connect(rs_binding)
 with open('PROJI-HNS.txt', 'r') as f:
     read_file = f.readlines()
 
-# send a intro message to the client.
-#n = random.randint(0,len(read_file)-1)
+# send a DNS query to the client.
 for line in read_file:
     msg = line.rstrip("\r\n")
     crs.sendall(msg.encode('utf-8'))
-    #time.sleep(3)
-    # Receive data from the server
+
+    # Receive data from the root-server
     data_from_rs = crs.recv(1024)
     decoded_msg = data_from_rs.decode('utf-8')
-    # print("[C]: Data received from root-server: " + str(decoded_msg))
 
     # write received data to outupt file if DNS is resolved
     if "A" in decoded_msg:
-        with open('resolve.txt', 'a') as text_file:
+        with open('RESOLVED.txt', 'a') as text_file:
             text_file.write(decoded_msg + "\n")
     elif "NS" in decoded_msg:
         try:
@@ -62,13 +60,6 @@ for line in read_file:
         # Receive data from the server
         data_from_ts = cts.recv(100)
         decoded = data_from_ts.decode('utf-8')
-        #print("[C]: Data received from top-level-server: " + str(decoded))
 
-        with open('resolve.txt', 'a') as text_file:
+        with open('RESOLVED.txt', 'a') as text_file:
             text_file.write(decoded + "\n")
-
-#cts.close()
-#exit()
-
-#crs.close()
-#exit()

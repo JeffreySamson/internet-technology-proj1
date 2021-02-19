@@ -34,19 +34,23 @@ with open('PROJI-DNSRS.txt', 'r') as file:
 
 dns = {"hostName" : hosts, "IP": ip, "flag": fl}
 
-# Receive data from the server
-data_from_client = csockid.recv(100)
-message = data_from_client.decode('utf-8')
-print("[S]: Query received from client : {}".format(message))
+while True:
+    # Receive data from the server
+    data_from_client = csockid.recv(100)
+    message = data_from_client.decode('utf-8')
+    print("[S]: Query received from client : {}".format(message))
 
-# Lookup the queried domain in the RS-DNS table
-host_name = [name.lower() for name in dns["hostName"]]
+    # Lookup the queried domain in the RS-DNS table
+    host_name = [name.lower() for name in dns["hostName"]]
 
-if message.lower() in host_name:
-    ind = host_name.index(message.lower())
-else:
-    ind = dns["flag"].index("NS")
+    if message.lower() in host_name:
+        ind = host_name.index(message.lower())
+    else:
+        ind = dns["flag"].index("NS")
 
-# Send either the resolved DNS or the TShostname
-msg = dns["hostName"][ind] + " " + dns["IP"][ind] + " " + dns["flag"][ind]
-csockid.send(msg.encode('utf-8'))
+    # Send either the resolved DNS or the TShostname
+    msg = dns["hostName"][ind] + " " + dns["IP"][ind] + " " + dns["flag"][ind]
+    csockid.send(msg.encode('utf-8'))
+
+rs.close()
+exit()

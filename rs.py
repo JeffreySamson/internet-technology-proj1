@@ -14,7 +14,7 @@ except socket.error as err:
 
 server_binding = ('', int(sys.argv[1]))
 rs.bind(server_binding)
-rs.listen(20)
+rs.listen(1)
 host = socket.gethostname()
 print("[RS]: Server host name is {}".format(host))
 localhost_ip = (socket.gethostbyname(host))
@@ -35,13 +35,11 @@ dns = {"hostName" : hosts, "IP": ip, "flag": fl}
 
 while True:
     csockid, addr = rs.accept()
-    print ("[RS]: Got a connection request from a client at {}".format(addr))
     try:
         while True:
             # Receive data from the server
             data_from_client = csockid.recv(1024)
             message = data_from_client.decode('utf-8')
-            print("[S]: Query received from client : {}".format(message))
 
             # Lookup the queried domain in the RS-DNS table
             host_name = [name.lower() for name in dns["hostName"]]

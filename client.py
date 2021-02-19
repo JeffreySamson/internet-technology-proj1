@@ -29,10 +29,10 @@ with open('PROJI-HNS.txt', 'r') as f:
 #n = random.randint(0,len(read_file)-1)
 for line in read_file:
     msg = line.rstrip("\r\n")
-    crs.send(msg.encode('utf-8'))
+    crs.sendall(msg.encode('utf-8'))
     #time.sleep(3)
     # Receive data from the server
-    data_from_rs = crs.recv(100)
+    data_from_rs = crs.recv(1024)
     decoded_msg = data_from_rs.decode('utf-8')
     # print("[C]: Data received from root-server: " + str(decoded_msg))
 
@@ -57,7 +57,7 @@ for line in read_file:
         server_binding = (localhost_addr, ts_port)
         cts.connect(server_binding)
 
-        cts.send(msg.encode('utf-8'))
+        cts.sendall(msg.encode('utf-8'))
 
         # Receive data from the server
         data_from_ts = cts.recv(100)
@@ -66,11 +66,9 @@ for line in read_file:
 
         with open('resolve.txt', 'a') as text_file:
             text_file.write(decoded + "\n")
-# client for top-level server
-# time.sleep(5)
 
-cts.close()
-exit()
+#cts.close()
+#exit()
 
-crs.close()
-exit()
+#crs.close()
+#exit()
